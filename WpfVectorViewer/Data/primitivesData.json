@@ -1,0 +1,26 @@
+[
+	{
+		"type": "line",
+		"a": "0; 0",
+		"b": "300,2; 500,7",
+		"color": "127; 255; 255; 255",
+		"lineType": "solid"
+	},
+	{
+		"type": "circle",
+		"center": "0; 0",
+		"radius": 300,
+		"filled": false,
+		"color": "127; 255; 0; 0",
+		"lineType": "dot"
+	},
+	{
+		"type": "triangle",
+		"a": "100; 300",
+		"b": "15; 20,3",
+		"c": "0; 500",
+		"filled": true,
+		"color": "127; 255; 0; 255",
+		"lineType": "dashDot"
+	}
+]
