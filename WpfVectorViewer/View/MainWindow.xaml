@@ -9,6 +9,11 @@
 		mc:Ignorable="d"
 		Title="MainWindow" >
 
+    <Grid
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch"
+        x:Name="mainGrid">
+        
         <ItemsControl ItemsSource="{Binding Path=PrimitiveComponentsList}"
 		x:Name="Collection" 
 		HorizontalAlignment="Stretch" 
@@ -85,4 +90,5 @@
             </DataTemplate>
         </ItemsControl.Resources>
     </ItemsControl>
+    </Grid>
 </Window>

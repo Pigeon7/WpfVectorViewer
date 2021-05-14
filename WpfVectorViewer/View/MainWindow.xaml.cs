@@ -22,16 +22,29 @@ namespace WpfVectorViewer
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(PrimitiveShapesViewModel viewModel)
+
+        private PrimitiveShapesViewModel _viewModel;
+        public MainWindow(PrimitiveShapesViewModel viewModel) 
         {
+            _viewModel = viewModel;
+
             InitializeComponent();
+            DataContext = _viewModel;
 
             Loaded += (sender, e) =>
-            { 
-                viewModel.UpdateScale(Application.Current.MainWindow.Height, Application.Current.MainWindow.Width);
-                DataContext = viewModel;
+            {
+                _viewModel.UpdateScale(mainGrid.ActualHeight, mainGrid.ActualWidth);
+                
+            };
+
+            SizeChanged += (sender, e) =>
+            {
+                _viewModel.UpdateScale(mainGrid.ActualHeight, mainGrid.ActualWidth);
             };
         }
+
+        
+        
 
     }
 }

@@ -1,15 +1,15 @@
 [
 	{
 		"type": "line",
-		"a": "50; 50",
-		"b": "300,2; 500,7",
-		"color": "127; 255; 255; 255",
-		"lineType": "dot"
+		"a": "100; 100",
+		"b": "300; 400",
+		"color": "127; 0; 255; 255",
+		"lineType": "solid"
 	},
 	{
 		"type": "circle",
-		"center": "0; 150",
-		"radius": 300,
+		"center": "0; 100",
+		"radius": 200,
 		"filled": false,
 		"color": "127; 0; 0; 0",
 		"lineType": "dashDot"
@@ -17,16 +17,16 @@
 	{
 		"type": "triangle",
 		"a": "0; 0",
-		"b": "0; 50",
-		"c": "300; 300",
+		"b": "0; 400",
+		"c": "200; 200",
 		"filled": true,
 		"color": "127; 255; 0; 255",
 		"lineType": "solid"
 	},
 	{
 		"type": "rectangle",
-		"a": "50; 50",
-		"b": "50; 250",
+		"a": "-50; 50",
+		"b": "-50; 250",
 		"c": "250; 250",
 		"d": "250; 50",
 		"filled": true,

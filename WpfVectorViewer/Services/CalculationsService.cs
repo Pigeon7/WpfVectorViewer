@@ -38,16 +38,25 @@ namespace WpfVectorViewer.Services
 
             var height = edgeBot - edgeTop;
             var width = edgeRight - edgeLeft;
+            //var lesserScale = Math.Min(windowWidth / width, windowHeight / height);
+            var lesserScale = Math.Min(1, Math.Min(windowWidth / width, windowHeight / height));
 
             var translate = new TranslateTransform(-edgeLeft, -edgeTop);
-            var lesserScale = width / windowWidth > height / windowHeight ? height / windowHeight : width / windowWidth;
-            ScaleTransform scale = new ScaleTransform(lesserScale, lesserScale);
-            TransformGroup transformGroup = new TransformGroup();
+            var scale = new ScaleTransform(lesserScale, lesserScale);
 
-            transformGroup.Children.Add(translate);
-            transformGroup.Children.Add(scale);
+            var matrix = new Matrix();
+            matrix.Translate(-edgeLeft, -edgeTop);
+            matrix.Scale(lesserScale, lesserScale);
 
-            return transformGroup;
+            //TransformGroup transformGroup = new TransformGroup() 
+            //{
+            //    Children = {
+            //        scale,
+            //        translate
+            //    }
+            //};
+
+            return new MatrixTransform(matrix);
         }
     }
 }

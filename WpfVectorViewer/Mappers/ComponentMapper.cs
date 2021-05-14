@@ -49,8 +49,8 @@ namespace WpfVectorViewer.Mappers
                 Color = MapColor(baseComponent.Color),
                 Diameter = radius * 2,
                 Center = new Point(CenterX, CenterY),
-                TopOffset = CenterX - radius,
-                LeftOffset = CenterY - radius,
+                TopOffset = CenterY - radius,
+                LeftOffset = CenterX - radius,
                 FillColor = baseComponent.Filled ? MapColor(baseComponent.Color) : Colors.Transparent
             };
         }

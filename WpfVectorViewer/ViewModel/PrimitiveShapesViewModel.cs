@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Media;
 using WpfVectorViewer.Enums;
@@ -10,10 +12,12 @@ using WpfVectorViewer.Services;
 
 namespace WpfVectorViewer.ViewModel
 {
-    public class PrimitiveShapesViewModel
+    public class PrimitiveShapesViewModel : INotifyPropertyChanged
     {
         private readonly IReadPrimitivesService _readDataService;
         private readonly ICalculationsService _calculationsService;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public ObservableCollection<PrimitiveComponent> PrimitiveComponentsList { get; set; }
 
@@ -36,6 +40,12 @@ namespace WpfVectorViewer.ViewModel
         public void UpdateScale(double windowHeight, double windowWidth)
         {
             Transformation = _calculationsService.CalculateScale(GetAllEdgesOfComponents(PrimitiveComponentsList), windowHeight, windowWidth);
+            OnPropertyChanged("Transformation");
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
         private List<Point> GetAllEdgesOfComponents(ObservableCollection<PrimitiveComponent> allComponents)
