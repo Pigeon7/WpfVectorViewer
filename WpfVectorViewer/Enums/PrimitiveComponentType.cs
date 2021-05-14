@@ -7,7 +7,8 @@ namespace WpfVectorViewer.Enums
     public enum PrimitiveComponentType
     {
         Line, 
-        Cicrce, 
+        Cicrcle, 
+        Rectangle, 
         Triangle
     }
 }

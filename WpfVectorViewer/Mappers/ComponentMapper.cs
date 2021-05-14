@@ -28,6 +28,9 @@ namespace WpfVectorViewer.Mappers
                     case "triangle":
                         mappedComponents.Add(MapTriangleComponent(component));
                         break;
+                    case "rectangle":
+                        mappedComponents.Add(MapRectangleComponent(component));
+                        break;
                 }
             }
             return mappedComponents;
@@ -41,14 +44,42 @@ namespace WpfVectorViewer.Mappers
 
             return new CircleModel()
             {
-                Type = PrimitiveComponentType.Triangle,
-                LineType = MapLineType(baseComponent.LineType),
+                Type = PrimitiveComponentType.Cicrcle,
+                LineTypeArray = MapLineType(baseComponent.LineType),
                 Color = MapColor(baseComponent.Color),
-                Radius = radius,
+                Diameter = radius * 2,
                 Center = new Point(CenterX, CenterY),
+                TopOffset = CenterX - radius,
+                LeftOffset = CenterY - radius,
                 FillColor = baseComponent.Filled ? MapColor(baseComponent.Color) : Colors.Transparent
             };
         }
+        private RectangleModel MapRectangleComponent(PrimitiveComponentDto baseComponent)
+        {
+            double Ax = Convert.ToDouble(baseComponent.A.Split(';')[0]);
+            double Ay = Convert.ToDouble(baseComponent.A.Split(';')[1]);
+            double Bx = Convert.ToDouble(baseComponent.B.Split(';')[0]);
+            double By = Convert.ToDouble(baseComponent.B.Split(';')[1]);
+            double Cx = Convert.ToDouble(baseComponent.C.Split(';')[0]);
+            double Cy = Convert.ToDouble(baseComponent.C.Split(';')[1]);
+            double Dx = Convert.ToDouble(baseComponent.D.Split(';')[0]);
+            double Dy = Convert.ToDouble(baseComponent.D.Split(';')[1]);
+
+            return new RectangleModel()
+            {
+                Type = PrimitiveComponentType.Rectangle,
+                LineTypeArray = MapLineType(baseComponent.LineType),
+                Color = MapColor(baseComponent.Color),
+                Points = new PointCollection {
+                    new Point(Ax, Ay),
+                    new Point(Bx, By),
+                    new Point(Cx, Cy),
+                    new Point(Dx, Dy)
+                },
+                FillColor = baseComponent.Filled ? MapColor(baseComponent.Color) : Colors.Transparent
+            };
+        }
+        
         private TriangleModel MapTriangleComponent(PrimitiveComponentDto baseComponent)
         {
             double Ax = Convert.ToDouble(baseComponent.A.Split(';')[0]);
@@ -61,11 +92,13 @@ namespace WpfVectorViewer.Mappers
             return new TriangleModel()
             {
                 Type = PrimitiveComponentType.Triangle,
-                LineType = MapLineType(baseComponent.LineType),
+                LineTypeArray = MapLineType(baseComponent.LineType),
                 Color = MapColor(baseComponent.Color),
-                A = new Point(Ax, Ay),
-                B = new Point(Bx, By),
-                C = new Point(Cx, Cy),
+                Points = new PointCollection {
+                    new Point(Ax, Ay),
+                    new Point(Bx, By),
+                    new Point(Cx, Cy)
+                },
                 FillColor = baseComponent.Filled ? MapColor(baseComponent.Color) : Colors.Transparent
             };
         }
@@ -80,22 +113,22 @@ namespace WpfVectorViewer.Mappers
             return new LineModel()
             {
                 Type = PrimitiveComponentType.Line,
-                LineType = MapLineType(baseComponent.LineType),
+                LineTypeArray = MapLineType(baseComponent.LineType),
                 Color = MapColor(baseComponent.Color),
                 A = new Point(Ax, Ay),
                 B = new Point(Bx, By)
             };
         }
 
-        private LineType MapLineType(string lineType) 
+        private DoubleCollection MapLineType(string lineType) 
         {
             return (lineType.ToLower()) switch
             {
-                "solid" => LineType.Solid,
-                "dot" => LineType.Dot,
-                "dash" => LineType.Dash,
-                "dashDot" => LineType.DashDot,
-                _ => LineType.Solid,
+                "solid" => null,
+                "dot" => new DoubleCollection { 1, 3, 1, 3 },
+                "dash" => new DoubleCollection { 3, 3, 3, 3 },
+                "dashdot" => new DoubleCollection { 1, 4, 4, 4 },
+                _ => null
             };
         }
 

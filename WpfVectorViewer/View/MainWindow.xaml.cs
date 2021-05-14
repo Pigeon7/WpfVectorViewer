@@ -25,8 +25,13 @@ namespace WpfVectorViewer
         public MainWindow(PrimitiveShapesViewModel viewModel)
         {
             InitializeComponent();
-            gridName.RenderTransform = new ScaleTransform(0.5, 0.5);
-            DataContext = viewModel;
+
+            Loaded += (sender, e) =>
+            { 
+                viewModel.UpdateScale(Application.Current.MainWindow.Height, Application.Current.MainWindow.Width);
+                DataContext = viewModel;
+            };
         }
+
     }
 }

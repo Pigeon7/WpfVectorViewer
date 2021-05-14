@@ -1,4 +1,5 @@
 ﻿using System.Windows.Media;
+using System.Windows.Shapes;
 using WpfVectorViewer.Enums;
 
 namespace WpfVectorViewer.Model
@@ -7,6 +8,6 @@ namespace WpfVectorViewer.Model
     {
         public PrimitiveComponentType Type { get; set; }
         public Color Color { get; set; }
-        public LineType LineType { get; set; }
+        public DoubleCollection LineTypeArray { get; set; }
     }
 }

@@ -29,6 +29,7 @@ namespace WpfVectorViewer
         private void ConfigureServices(IUnityContainer container)
         {
             container.RegisterType<IReadPrimitivesService, ReadPrimitivesService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<ICalculationsService, CalculationsService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IComponentMapper, ComponentMapper>(new ContainerControlledLifetimeManager());
         }
 

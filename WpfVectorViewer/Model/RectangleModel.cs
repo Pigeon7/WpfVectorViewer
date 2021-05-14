@@ -6,7 +6,7 @@ using System.Windows.Media;
 
 namespace WpfVectorViewer.Model
 {
-    public class TriangleModel : PrimitiveComponent
+    public class RectangleModel : PrimitiveComponent
     {
         public PointCollection Points { get; set; }
         public Color FillColor{ get; set; }
