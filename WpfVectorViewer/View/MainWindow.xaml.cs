@@ -41,8 +41,9 @@ namespace WpfVectorViewer
             {
                 _viewModel.UpdateScale(mainGrid.ActualHeight, mainGrid.ActualWidth);
             };
-        }
 
+            
+        }
         
         
 

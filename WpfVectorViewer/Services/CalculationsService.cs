@@ -41,12 +41,8 @@ namespace WpfVectorViewer.Services
             //var lesserScale = Math.Min(windowWidth / width, windowHeight / height);
             var lesserScale = Math.Min(1, Math.Min(windowWidth / width, windowHeight / height));
 
-            var translate = new TranslateTransform(-edgeLeft, -edgeTop);
-            var scale = new ScaleTransform(lesserScale, lesserScale);
-
-            var matrix = new Matrix();
-            matrix.Translate(-edgeLeft, -edgeTop);
-            matrix.Scale(lesserScale, lesserScale);
+            //var translate = new TranslateTransform(-edgeLeft, -edgeTop);
+            //var scale = new ScaleTransform(lesserScale, lesserScale);
 
             //TransformGroup transformGroup = new TransformGroup() 
             //{
@@ -55,6 +51,10 @@ namespace WpfVectorViewer.Services
             //        translate
             //    }
             //};
+
+            var matrix = new Matrix();
+            matrix.Translate(-edgeLeft, -edgeTop);
+            matrix.Scale(lesserScale, lesserScale);
 
             return new MatrixTransform(matrix);
         }

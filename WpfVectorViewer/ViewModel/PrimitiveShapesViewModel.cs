@@ -5,7 +5,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
+using WpfVectorViewer.Command;
 using WpfVectorViewer.Enums;
 using WpfVectorViewer.Model;
 using WpfVectorViewer.Services;
@@ -20,6 +22,8 @@ namespace WpfVectorViewer.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ObservableCollection<PrimitiveComponent> PrimitiveComponentsList { get; set; }
+        public ComponentDetailsCommand ShowDetailsCommand { get; private set; }
+
 
         public Transform Transformation { get; set; }
 
@@ -28,6 +32,7 @@ namespace WpfVectorViewer.ViewModel
             _readDataService = readPrimitivesService;
             _calculationsService = calculationsService;
             PrimitiveComponentsList = new ObservableCollection<PrimitiveComponent>();
+            ShowDetailsCommand = new ComponentDetailsCommand(DisplayDetails);
 
             List<PrimitiveComponent> allComponents = _readDataService.ReadPrimitivesFromFile(Constants.FILE_PATH);
 
@@ -46,6 +51,11 @@ namespace WpfVectorViewer.ViewModel
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        private void DisplayDetails()
+        {
+            MessageBox.Show("SOMETHING");
         }
 
         private List<Point> GetAllEdgesOfComponents(ObservableCollection<PrimitiveComponent> allComponents)

@@ -56,6 +56,12 @@
                         <SolidColorBrush
 							Color="{Binding Color}"/>
                     </Ellipse.Stroke>
+                    <Ellipse.InputBindings>
+                        <MouseBinding
+                            Gesture="LeftClick"
+                            Command="{Binding ShowDetailsCommand}">
+                        </MouseBinding>
+                    </Ellipse.InputBindings>
                 </Ellipse>
             </DataTemplate>
             <DataTemplate DataType="{x:Type models:TriangleModel}">
@@ -71,7 +77,13 @@
                         <SolidColorBrush
 							Color="{Binding Color}"/>
                     </Polygon.Stroke>
-                </Polygon>
+                        <Polygon.InputBindings>
+                            <MouseBinding
+                            Gesture="LeftClick"
+                            Command="{Binding ShowDetailsCommand}">
+                            </MouseBinding>
+                        </Polygon.InputBindings>
+                    </Polygon>
             </DataTemplate>
             <DataTemplate DataType="{x:Type models:RectangleModel}">
                 <Polygon   
