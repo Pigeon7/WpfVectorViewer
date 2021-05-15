@@ -11,11 +11,11 @@ namespace WpfVectorViewer.Mappers
 {
     public class ComponentMapper : IComponentMapper
     {
-        public List<PrimitiveComponent> MapPrimitiveComponents(List<PrimitiveComponentDto> componenents) 
+        public List<PrimitiveComponent> MapPrimitiveComponents(List<PrimitiveComponentDto> components) 
         {
             var mappedComponents = new List<PrimitiveComponent>();
 
-            foreach (var component in componenents)
+            foreach (var component in components)
             {
                 switch (component.Type.ToLower())
                 {
