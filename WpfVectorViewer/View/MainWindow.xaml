@@ -12,6 +12,7 @@
     <Grid
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"
+        PreviewMouseDown="mainGrid_PreviewMouseDown"
         x:Name="mainGrid">
         
         <ItemsControl ItemsSource="{Binding Path=PrimitiveComponentsList}"
@@ -54,18 +55,12 @@
                     </Ellipse.Fill>
                     <Ellipse.Stroke>
                         <SolidColorBrush
-							Color="{Binding Color}"/>
+						Color="{Binding Color}"/>
                     </Ellipse.Stroke>
-                    <Ellipse.InputBindings>
-                        <MouseBinding
-                            Gesture="LeftClick"
-                            Command="{Binding ShowDetailsCommand}">
-                        </MouseBinding>
-                    </Ellipse.InputBindings>
                 </Ellipse>
             </DataTemplate>
             <DataTemplate DataType="{x:Type models:TriangleModel}">
-                <Polygon   
+                <Polygon
 					StrokeThickness="2"
 					StrokeDashArray="{Binding LineTypeArray}"
 					Points="{Binding Points}">
@@ -73,16 +68,10 @@
                         <SolidColorBrush
 							Color="{Binding FillColor}"/>
                     </Polygon.Fill>
-                    <Polygon.Stroke>
-                        <SolidColorBrush
+                        <Polygon.Stroke>
+                            <SolidColorBrush
 							Color="{Binding Color}"/>
-                    </Polygon.Stroke>
-                        <Polygon.InputBindings>
-                            <MouseBinding
-                            Gesture="LeftClick"
-                            Command="{Binding ShowDetailsCommand}">
-                            </MouseBinding>
-                        </Polygon.InputBindings>
+                        </Polygon.Stroke>
                     </Polygon>
             </DataTemplate>
             <DataTemplate DataType="{x:Type models:RectangleModel}">

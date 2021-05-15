@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Media;
-using WpfVectorViewer.Command;
 using WpfVectorViewer.Enums;
 using WpfVectorViewer.Model;
 using WpfVectorViewer.Services;
@@ -18,21 +15,23 @@ namespace WpfVectorViewer.ViewModel
     {
         private readonly IReadPrimitivesService _readDataService;
         private readonly ICalculationsService _calculationsService;
+        private readonly IMessagingService _messagingService;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ObservableCollection<PrimitiveComponent> PrimitiveComponentsList { get; set; }
-        public ComponentDetailsCommand ShowDetailsCommand { get; private set; }
-
 
         public Transform Transformation { get; set; }
 
-        public PrimitiveShapesViewModel(IReadPrimitivesService readPrimitivesService, ICalculationsService calculationsService) 
+        public PrimitiveShapesViewModel(IReadPrimitivesService readPrimitivesService, 
+                                        ICalculationsService calculationsService,
+                                        IMessagingService messagingService) 
         {
             _readDataService = readPrimitivesService;
             _calculationsService = calculationsService;
+            _messagingService = messagingService;
+
             PrimitiveComponentsList = new ObservableCollection<PrimitiveComponent>();
-            ShowDetailsCommand = new ComponentDetailsCommand(DisplayDetails);
 
             List<PrimitiveComponent> allComponents = _readDataService.ReadPrimitivesFromFile(Constants.FILE_PATH);
 
@@ -53,9 +52,9 @@ namespace WpfVectorViewer.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        private void DisplayDetails()
+        public void DisplayDetails(object component)
         {
-            MessageBox.Show("SOMETHING");
+            _messagingService.DisplayMessage(BuildMessage(component));
         }
 
         private List<Point> GetAllEdgesOfComponents(ObservableCollection<PrimitiveComponent> allComponents)
@@ -90,6 +89,23 @@ namespace WpfVectorViewer.ViewModel
             }
 
             return points;
+        }
+
+        private string BuildMessage(object component)
+        {
+            switch (component)
+            { 
+                case LineModel model:
+                    return $"Point A: {model.A.X};{model.A.Y}\n Point B: {model.B.X};{model.B.Y}\n";
+                case TriangleModel model:
+                    return $"Point A: {model.Points[0].X};{model.Points[0].Y}\nPoint B: {model.Points[1].X};{model.Points[1].Y}\nPoint C: {model.Points[2].X};{model.Points[2].Y}\n";
+                case RectangleModel model:
+                    return $"Point A: {model.Points[0].X};{model.Points[0].Y}\nPoint B: {model.Points[1].X};{model.Points[1].Y}\nPoint C: {model.Points[2].X};{model.Points[2].Y}\nPoint D: {model.Points[3].X};{model.Points[3].Y}\n";
+                case CircleModel model:
+                    return $"Center Point: {model.Center.X};{model.Center.Y}\nDiameter: {model.Diameter}";
+                default:
+                    return "No matching component to view properties";
+            }
         }
     }
 }

@@ -42,10 +42,11 @@ namespace WpfVectorViewer
                 _viewModel.UpdateScale(mainGrid.ActualHeight, mainGrid.ActualWidth);
             };
 
-            
         }
-        
-        
 
+        private void mainGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            _viewModel.DisplayDetails((e.OriginalSource as FrameworkElement).DataContext);
+        }
     }
 }
