@@ -11,7 +11,7 @@ namespace WpfVectorViewer.Mappers
 {
     public interface IComponentMapper
     {
-        List<PrimitiveComponent> MapPrimitiveComponents(List<PrimitiveComponentDto> componenents);
+        List<PrimitiveComponent> MapPrimitiveComponents(IEnumerable<PrimitiveComponentDto> componenents);
     }
 }
  

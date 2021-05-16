@@ -25,13 +25,13 @@
       <type>triangle</type>
    </element>
    <element>
-      <a>-50;50</a>
-      <b>-50;250</b>
-      <c>250;250</c>
+      <center>100;100</center>
+      <width>100</width>
+      <height>200</height>
       <color>127;0;0;255</color>
-      <d>250;50</d>
+      <rotation>30</rotation>
       <filled>true</filled>
-      <lineType>da</lineType>
+      <lineType>dash</lineType>
       <type>rectangle</type>
    </element>
 </root>

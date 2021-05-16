@@ -28,8 +28,14 @@ namespace WpfVectorViewer.Dto
         [XmlElement("c")]
         public string C { get; set; }
 
-        [XmlElement("d")]
-        public string D { get; set; }
+        [XmlElement("width")]
+        public double Width { get; set; }
+
+        [XmlElement("height")]
+        public double Height { get; set; }
+
+        [XmlElement("rotation")]
+        public int Rotation { get; set; }
 
         [XmlElement("center")]
         public string Center { get; set; }

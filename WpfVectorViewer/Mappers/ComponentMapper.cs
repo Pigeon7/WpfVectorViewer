@@ -11,7 +11,7 @@ namespace WpfVectorViewer.Mappers
 {
     public class ComponentMapper : IComponentMapper
     {
-        public List<PrimitiveComponent> MapPrimitiveComponents(List<PrimitiveComponentDto> components) 
+        public List<PrimitiveComponent> MapPrimitiveComponents(IEnumerable<PrimitiveComponentDto> components) 
         {
             var mappedComponents = new List<PrimitiveComponent>();
 
@@ -56,26 +56,29 @@ namespace WpfVectorViewer.Mappers
         }
         private RectangleModel MapRectangleComponent(PrimitiveComponentDto baseComponent)
         {
-            double Ax = Convert.ToDouble(baseComponent.A.Split(';')[0]);
-            double Ay = Convert.ToDouble(baseComponent.A.Split(';')[1]);
-            double Bx = Convert.ToDouble(baseComponent.B.Split(';')[0]);
-            double By = Convert.ToDouble(baseComponent.B.Split(';')[1]);
-            double Cx = Convert.ToDouble(baseComponent.C.Split(';')[0]);
-            double Cy = Convert.ToDouble(baseComponent.C.Split(';')[1]);
-            double Dx = Convert.ToDouble(baseComponent.D.Split(';')[0]);
-            double Dy = Convert.ToDouble(baseComponent.D.Split(';')[1]);
+            double centerPointX = Convert.ToDouble(baseComponent.Center.Split(';')[0]);
+            double centerPointY = Convert.ToDouble(baseComponent.Center.Split(';')[1]);
+            double width = Convert.ToDouble(baseComponent.Width);
+            double height = Convert.ToDouble(baseComponent.Height);
+
+            Point[] points =
+            {
+                new Point(centerPointX - width/2, centerPointY - height/2),
+                new Point(centerPointX - width/2, centerPointY + height/2),
+                new Point(centerPointX + width/2, centerPointY + height/2),
+                new Point(centerPointX + width/2, centerPointY - height/2),
+            };
+
+            var matrix = new Matrix();
+            matrix.RotateAt(baseComponent.Rotation, centerPointX, centerPointY);
+            matrix.Transform(points);
 
             return new RectangleModel()
             {
                 Type = PrimitiveComponentType.Rectangle,
                 LineTypeArray = MapLineType(baseComponent.LineType),
                 Color = MapColor(baseComponent.Color),
-                Points = new PointCollection {
-                    new Point(Ax, Ay),
-                    new Point(Bx, By),
-                    new Point(Cx, Cy),
-                    new Point(Dx, Dy)
-                },
+                Points = new PointCollection(points),
                 FillColor = baseComponent.Filled ? MapColor(baseComponent.Color) : Colors.Transparent
             };
         }
@@ -124,11 +127,13 @@ namespace WpfVectorViewer.Mappers
         {
             return (lineType.ToLower()) switch
             {
+                null => null,
+                "" => null,
                 "solid" => null,
                 "dot" => new DoubleCollection { 1, 3, 1, 3 },
                 "dash" => new DoubleCollection { 3, 3, 3, 3 },
                 "dashdot" => new DoubleCollection { 1, 4, 4, 4 },
-                _ => null
+                _ => throw new Exception("NOT SUPPORTED LINE TYPE!")
             };
         }
 

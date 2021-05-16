@@ -21,15 +21,15 @@ namespace WpfVectorViewer.Services
         public List<PrimitiveComponent> ReadPrimitivesFromFile(string filePath)
         {
             List<PrimitiveComponentDto> primitivesDtos;
-            string fileExtension = filePath.Split('.')[1];
+            string fileExtension = Path.GetExtension(filePath);
             string fileContent = File.ReadAllText(filePath);
 
             switch (fileExtension)
             {
-                case "json":
+                case ".json":
                     primitivesDtos = JsonConvert.DeserializeObject<List<PrimitiveComponentDto>>(fileContent);
                     break;
-                case "xml":
+                case ".xml":
                     var serializer = new XmlSerializer(typeof(List<PrimitiveComponentDto>), new XmlRootAttribute("root"));
                     var xmlStringReader = new StringReader(fileContent);
                     primitivesDtos = (List<PrimitiveComponentDto>) serializer.Deserialize(xmlStringReader);

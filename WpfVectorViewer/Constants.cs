@@ -6,6 +6,6 @@ namespace WpfVectorViewer
 {
     public class Constants
     {
-        public static string FILE_PATH = "C:\\Users\\Wojtek\\source\\repos\\WpfVectorViewer\\WpfVectorViewer\\Data\\primitivesDataXML.xml";
+        public static string FILE_PATH = @"C:\Users\Wojtek\source\repos\WpfVectorViewer\WpfVectorViewer\Data\primitivesDataXML.xml";
     }
 }
