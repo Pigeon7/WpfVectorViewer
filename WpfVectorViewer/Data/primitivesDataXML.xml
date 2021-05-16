@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
    <element>
-      <a>100;100</a>
+      <a>-300;-100</a>
       <b>300;400</b>
       <color>127;0;255;255</color>
       <lineType>solid</lineType>
@@ -19,7 +19,7 @@
       <a>0;0</a>
       <b>0;400</b>
       <c>200;200</c>
-      <color>127;255;0;255</color>
+      <color>127;0;255;0</color>
       <filled>true</filled>
       <lineType>solid</lineType>
       <type>triangle</type>
